@@ -31,8 +31,9 @@ class GameLoop :
             for enemy in self.enemy : 
                 enemy.updatePos(self.offset)
                 res = self.player.check_col(enemy.entity)
-                if (res) : 
-                    break
+                if res : 
+                    print('returned')
+                    return True
             self.getDammage()
             self.kill()
         return res

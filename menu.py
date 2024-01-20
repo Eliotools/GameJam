@@ -88,8 +88,6 @@ def main_menu():
                 settings.menu(screen)
         pygame.display.update()
 
-
-main_menu()
-
-pygame.quit()
-
+if __name__ == '__main__':
+    main_menu()
+    pygame.quit()

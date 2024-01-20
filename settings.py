@@ -26,8 +26,6 @@ class Settings():
 
         font = pygame.font.SysFont('inkfree',50)#try inkfree, georgia,impact,dubai,arial
 
-        print(pygame.key.name(pygame.K_u))
-
         keybinds_button_width = SCREEN_WIDTH * 0.15
         keybinds_text_width = keybinds_button_width + 200
 
