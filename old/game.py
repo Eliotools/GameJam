@@ -1,5 +1,4 @@
 from game_loop import GameLoop
-from game_loop import GameLoop
 from os.path import join
 from obstacle import Obstacle
 from background import Background

@@ -4,7 +4,7 @@ from button import *
 from game import *
 from os import listdir
 from os.path import isfile, join
-from settings import *
+from old.settings import *
 
 pygame.init()
 
