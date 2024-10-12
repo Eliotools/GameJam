@@ -7,7 +7,7 @@ from sprit import Sprit
 
 class Entity:
   def __init__ (self, asset, pos, randKey=False):
-    self.sprit = Sprit(asset[0],randKey, asset[1], asset[3])
+    self.sprit = Sprit(asset[0],randKey, asset[1])
     self.type = asset[2]
     self.pos = pos
     self.direction = Direction.LEFT
@@ -15,6 +15,9 @@ class Entity:
 
   def getCenterPos(self):
     return self.pos[0] + self.sprit.size[0],self.pos[1] + self.sprit.size[1]
+
+  def getBox(self):
+    return self.pos, (self.pos[0]+ self.sprit.size[0],self.pos[1]+ self.sprit.size[1])
 
   def kill(self, entities):
     if (self.dead is True):
@@ -39,7 +42,7 @@ class Fireball(Entity):
     def __init__(self, pos, angle=0):
       super().__init__(FirballAsset, pos, randKey=False)
       self.primaryAngle = angle
-      self.deadSprit = Sprit(DeadFirballAsset[0],False, DeadFirballAsset[1], DeadFirballAsset[3] )
+      self.deadSprit = Sprit(DeadFirballAsset[0],False, DeadFirballAsset[1] )
       self.angle = 0
       self.life = 50
 
@@ -66,12 +69,12 @@ class Fireball(Entity):
       player = list(filter(lambda x:x.type == Type.Player, entities))[0]
       playerPos = player.getCenterPos()
       pos = self.action(entities)
+      if (checkColEntity(player.getBox(), self.getBox() )):
+        player.dead = True
       if (pos == None):
         return
-      if (checkColEntity(self,player )):
-        player.dead = True
       for tree in  list(filter(lambda x:x.type == Type.Tree, entities)) :
-        if (checkColEntity(self, tree)):
+        if (checkColEntity(self.getBox(), tree.getBox())):
           tree.burning()
       self.pos = self.pos[0] + pos[0], self.pos[1] + pos[1]
       if self.pos[0] != playerPos[0]:
@@ -87,12 +90,12 @@ class Fireball(Entity):
 class Demon(Entity):
   def __init__(self, pos):
     super().__init__(DemonAsset, pos, randKey=False)
-    self.sprit = Sprit(SmockAsset[0], False, SmockAsset[1],SmockAsset[3])
+    self.sprit = Sprit(SmockAsset[0], False, SmockAsset[1])
     self.change = False
 
   def move(self, entities):
     if (self.sprit.key == 0):
-      self.sprit = Sprit(DemonAsset[0], False, DemonAsset[1],DemonAsset[3])
+      self.sprit = Sprit(DemonAsset[0], False, DemonAsset[1])
     pos = self.action(entities)
     self.direction = Direction.LEFT  if pos[0] < 0 else Direction.RIGHT
     if (pos == None):
@@ -148,7 +151,7 @@ class Player(Entity):
 class Tree(Entity):
   def __init__(self, pos):
     super().__init__(TreeAsset, pos, randKey=True)
-    self.burningSprite =  Sprit(BurnignTreeAsset[0], False, BurnignTreeAsset[1], BurnignTreeAsset[3])
+    self.burningSprite =  Sprit(BurnignTreeAsset[0], False, BurnignTreeAsset[1])
     self.buring = 0
     
   def burning(self):
@@ -192,6 +195,7 @@ class Lightning(Entity):
     super().__init__(LightningAsset, pos)
     self.life = True
     self.target = target
+    self.pos = pos[0] - LightningAsset[1][0]/2, pos[1] - LightningAsset[1][1]
 
   def action(self, entities):
     self.life = False
@@ -207,8 +211,8 @@ class Grave(Entity):
   def __init__(self, pos):
     super().__init__(GraveAsset, pos)
     self.frame = 0
-    self.sprit = Sprit(SmockAsset[0], False, SmockAsset[1], SmockAsset[3])
-    self.secSprite = Sprit(GraveAsset[0], False, GraveAsset[1],GraveAsset[1] )
+    self.sprit = Sprit(SmockAsset[0], False, SmockAsset[1])
+    self.secSprite = Sprit(GraveAsset[0], False, GraveAsset[1] )
   
   def action(self, entities):
     if (self.sprit.key == 0):

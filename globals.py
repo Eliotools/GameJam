@@ -33,29 +33,33 @@ class Type(Enum):
   Grave=7
 
 
-PlayerAsset=["./assets/charactere/player/left.png", (PLAYER_WIDTH,PLAYER_HEIGHT), Type.Player, 1]
-TreeAsset=["./assets/item/tree.png", (64,64), Type.Tree, 2]
-BurnignTreeAsset=["./assets/item/treeBurning.png", (64,64), Type.Tree, 2]
-SmockAsset=["./assets/item/smoke.png", (32,32), Type.Smock, 2]
-CoinAsset=["./assets/item/coin.png", (20,20), Type.Coin, 2]
-DemonAsset=["./assets/charactere/demon/left.png", (64,60), Type.Demon, 1]
-FirballAsset=["./assets/fireballs/RedFireball/run.png", (15,15), Type.Fireball, 2]
-DeadFirballAsset=["./assets/fireballs/RedFireball/dead.png", (15,15), Type.Fireball, 2]
-LightningAsset=["./assets/item/lightning.png", (32,32), Type.Lightning, 2]
-GraveAsset=["./assets/item/grave.png", (32,32), Type.Grave, 2]
+PlayerAsset=["./assets/charactere/player/left.png", (PLAYER_WIDTH,PLAYER_HEIGHT), Type.Player]
+TreeAsset=["./assets/item/tree.png", (124,124), Type.Tree]
+BurnignTreeAsset=["./assets/item/treeBurning.png", (124,124), Type.Tree]
+SmockAsset=["./assets/item/smoke.png", (90,60), Type.Smock]
+CoinAsset=["./assets/item/coin.png", (40,40), Type.Coin]
+DemonAsset=["./assets/charactere/demon/left.png", (64,60), Type.Demon]
+FirballAsset=["./assets/item/fireball.png", (30,30), Type.Fireball]
+DeadFirballAsset=["./assets/item/fireball_dead.png", (30,30), Type.Fireball]
+LightningAsset=["./assets/item/lightning.png", (128,128), Type.Lightning]
+GraveAsset=["./assets/item/grave.png", (64,64), Type.Grave]
 
 
 def checkColEntity(entity1, entity2): 
-      a = entity1.pos[0] < entity2.pos[0] and entity2.pos[0] < entity1.pos[0] + entity1.sprit.size[0]*2
-      b = entity1.pos[0] < entity2.pos[0]+ entity2.sprit.size[0] and  entity2.pos[0]+ entity2.sprit.size[0] < entity1.pos[0] + entity1.sprit.size[0]*2
-      c = entity1.pos[1] < entity2.pos[1] and entity2.pos[1] < entity1.pos[1] + entity1.sprit.size[1]*2
-      d = entity1.pos[1] < entity2.pos[1]+ entity2.sprit.size[1] and  entity2.pos[1]+ entity2.sprit.size[1] < entity1.pos[1] + entity1.sprit.size[1]*2
-      
-      return  (a or b) and (c or d)
+      print(entity1, entity2)
+      x = lambda x: entity1[0][0] < x and x < entity1[1][0]
+      y = lambda y: entity1[0][1] < y and y < entity1[1][1]
 
+      a = x(entity2[1][0]) and y(entity2[1][1])
+      b = x(entity2[0][0]) and y(entity2[1][1])
+      c = x(entity2[0][0]) and y(entity2[0][1])
+      d = x(entity2[1][0]) and y(entity2[0][1])
+
+      return a or b or c or d
+     
 def checkColPos(entity1, pos): 
-      a = entity1.pos[0] < pos[0] and pos[0] < entity1.pos[0] + entity1.sprit.size[0]*2
-      c = entity1.pos[1] < pos[1] and pos[1] < entity1.pos[1] + entity1.sprit.size[1]*2
+      x = entity1[0][0] <  pos[0] and pos[0] < entity1[1][0]
+      y = entity1[0][1] <  pos[1] and pos[1] < entity1[1][1]
       
-      return  a and c
+      return  x and y
      

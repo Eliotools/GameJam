@@ -1,6 +1,6 @@
 import random
 import pygame
-from entity import Coin, Demon, Lightning, Tree
+from entity import Coin, Demon, Fireball, Lightning, Tree
 from globals import *
 from hud import Hud
 
@@ -88,8 +88,7 @@ class RenderMachine():
             if (self.player.spellTimeout == 0):
               pos = pygame.mouse.get_pos()
               for demon in list(filter(lambda x:x.type == Type.Demon, self.entities)):
-                if (checkColPos(demon, (pos[0], pos[1]))):
-                    self.entities.append(Lightning(demon.pos, demon))
+                if (checkColPos(demon.getBox(), pos)):
                     self.player.spellTimeout = 100
       if current_time - self.last_update_time > self.frame_delay:
           self.last_update_time = current_time 
