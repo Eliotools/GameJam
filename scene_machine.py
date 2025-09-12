@@ -9,6 +9,7 @@ class SceneMachine():
     self.index = 0,0
 
   def transition(self, direction, screen, entities):
+    print("ici")
     i = 0
     
     if direction == Direction.LEFT:

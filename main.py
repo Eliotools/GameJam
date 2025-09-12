@@ -14,9 +14,9 @@ class SceneManager():
       self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
       self.player = Player()
       self.scenes = [[0 for i in range(10) ]for i in range(10)]
-      self.index = 5,5
+      self.index = 1,1
       self.run = True
-      self.transitionFR = 0
+      self.transitionFR = 1
       self.scenes[self.index[0]][self.index[1]] = RenderMachine(self.screen, [self.player], FRAME_DELAY, self.transition)
     def game(self):
       self.scenes[self.index[0]][self.index[1]].loop()
@@ -101,8 +101,8 @@ class SceneManager():
               entity.pos = entity.pos[0] + offset[0], entity.pos[1] + offset[1]
               entity.draw(self.screen)
           for entity in newScene.entities:
-              if (type(entity) == Player):
-                continue
+              # if (type(entity) == Player):
+              #   continue
               entity.pos = entity.pos[0]+offset[0], entity.pos[1]+offset[1]
               entity.draw(self.screen)
 
@@ -116,7 +116,7 @@ class SceneManager():
       
       self.index = x,y
       self.scenes[self.index[0]][self.index[1]] = newScene
-      self.player.pos =  self.player.pos[0] + (SCREEN_WIDTH*offset[0]) - (PLAYER_WIDTH*offset[0]), self.player.pos[1] + (SCREEN_HEIGHT*offset[1]) - (PLAYER_WIDTH*offset[1]),
+      # self.player.pos =  self.player.pos[0] + (SCREEN_WIDTH*offset[0]) - (PLAYER_WIDTH*offset[0]), self.player.pos[1] + (SCREEN_HEIGHT*offset[1]) - (PLAYER_WIDTH*offset[1]),
       loop=0
       # PLAYER IN
       while True:
@@ -139,14 +139,11 @@ class SceneManager():
 
 
 
-run = True
+run = False
 sceneManager = SceneManager()
 
    
-       
-
 if __name__ == '__main__':
-  
     sceneManager.game()
     print('end')
     pygame.quit()

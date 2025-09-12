@@ -33,7 +33,7 @@ class Type(Enum):
   Grave=7
 
 
-PlayerAsset=["./assets/charactere/player/left.png", (PLAYER_WIDTH,PLAYER_HEIGHT), Type.Player]
+PlayerAsset=["./assets/charactere/player/right.png", (PLAYER_WIDTH,PLAYER_HEIGHT), Type.Player]
 TreeAsset=["./assets/item/tree.png", (124,124), Type.Tree]
 BurnignTreeAsset=["./assets/item/treeBurning.png", (124,124), Type.Tree]
 SmockAsset=["./assets/item/smoke.png", (90,60), Type.Smock]
@@ -45,8 +45,7 @@ LightningAsset=["./assets/item/lightning.png", (128,128), Type.Lightning]
 GraveAsset=["./assets/item/grave.png", (64,64), Type.Grave]
 
 
-def checkColEntity(entity1, entity2): 
-      print(entity1, entity2)
+def checkColEntity(entity1, entity2, display=False): 
       x = lambda x: entity1[0][0] < x and x < entity1[1][0]
       y = lambda y: entity1[0][1] < y and y < entity1[1][1]
 
@@ -60,6 +59,5 @@ def checkColEntity(entity1, entity2):
 def checkColPos(entity1, pos): 
       x = entity1[0][0] <  pos[0] and pos[0] < entity1[1][0]
       y = entity1[0][1] <  pos[1] and pos[1] < entity1[1][1]
-      
       return  x and y
      

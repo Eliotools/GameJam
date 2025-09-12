@@ -24,11 +24,9 @@ class Sprit:
     if (self.key == -1):
         self.key = random.randint(0, nbSprite-1)
     for i in range(nbSprite):
-        surface = pygame.Surface((width, height), 0, 32)
+        surface = pygame.Surface((width, height), pygame.SRCALPHA, 32)
         rect = pygame.Rect(i * width, 0, width, height)
         surface.blit(sprite_sheet, (0, 0), rect)
         sprites.append(surface)
                 
     return sprites
-  
-  # pygame.SRCALPHA

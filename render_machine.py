@@ -57,14 +57,14 @@ class RenderMachine():
       self.transition(Direction.LEFT)
       self.run = False
     if (self.player.pos[0] > SCREEN_WIDTH - 2*PLAYER_WIDTH):
-        self.transition(Direction.RIGHT)
-        self.run = False
+      self.transition(Direction.RIGHT)
+      self.run = False
     if (self.player.pos[1] > SCREEN_HEIGHT - 2*PLAYER_HEIGHT):
-        self.transition(Direction.DOWN)
-        self.run = False
+      self.transition(Direction.DOWN)
+      self.run = False
     if (self.player.pos[1] < 0):
-        self.transition(Direction.UP)
-        self.run = False
+      self.transition(Direction.UP)
+      self.run = False
     
    
   def loop(self):
@@ -90,6 +90,7 @@ class RenderMachine():
               for demon in list(filter(lambda x:x.type == Type.Demon, self.entities)):
                 if (checkColPos(demon.getBox(), pos)):
                     self.player.spellTimeout = 100
+                    self.entities.append(Lightning(demon.getCenterPos(), demon))
       if current_time - self.last_update_time > self.frame_delay:
           self.last_update_time = current_time 
           self.screen.fill((0,0,0))

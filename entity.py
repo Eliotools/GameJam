@@ -14,7 +14,7 @@ class Entity:
     self.dead = False
 
   def getCenterPos(self):
-    return self.pos[0] + self.sprit.size[0],self.pos[1] + self.sprit.size[1]
+    return self.pos[0] + self.sprit.size[0]/2 ,self.pos[1] + self.sprit.size[1]/2
 
   def getBox(self):
     return self.pos, (self.pos[0]+ self.sprit.size[0],self.pos[1]+ self.sprit.size[1])
@@ -74,7 +74,7 @@ class Fireball(Entity):
       if (pos == None):
         return
       for tree in  list(filter(lambda x:x.type == Type.Tree, entities)) :
-        if (checkColEntity(self.getBox(), tree.getBox())):
+        if (checkColEntity(self.getBox(), tree.getBox(), True)):
           tree.burning()
       self.pos = self.pos[0] + pos[0], self.pos[1] + pos[1]
       if self.pos[0] != playerPos[0]:
